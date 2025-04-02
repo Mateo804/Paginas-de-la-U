@@ -78,8 +78,10 @@
             padding: 10px;
             cursor: pointer;
         }
-        .prev { left: 10px; }
-        .next { right: 10px; }
+        .prev { left: 10px; 
+        }
+        .next { right: 10px; 
+        }
         .container {
             flex: 1;
             padding: 20px;
@@ -94,6 +96,30 @@
         }
         .footer-container strong {
             font-weight: bold;
+        }
+        .carousel-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+            margin-top: -20px;
+        }
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin-top: -60px;
+             
+        }
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .carousel img.active {
+            opacity: 1;
         }
     </style>
 </head>
@@ -122,46 +148,33 @@
             <a href="#internacionalizacion">INTERNACIONALIZACIÓN</a>
         </nav>
     </header>
-    
-    <div class="slider-container">
-        <div class="slider">
-            <div class="slide"><img src="https://i.ytimg.com/vi/HpKia-7wKZk/maxresdefault.jpg" alt="Imagen 1"></div>
-            <div class="slide"><img src="https://maraton.unicordoba.edu.co/pluginfile.php/1/theme_moove/sliderimage1/1739461167/fondo.png" alt="Imagen 2"></div>
-            <div class="slide"><img src="https://cloudfront-us-east-1.images.arcpublishing.com/prisaradioco/KQDBYECJKNPVBMJJY2IERUVTOI.jpg" alt="Imagen 3"></div>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <img src="https://i.ytimg.com/vi/HpKia-7wKZk/maxresdefault.jpg" class="active">
+            <img src="https://maraton.unicordoba.edu.co/pluginfile.php/1/theme_moove/sliderimage1/1739461167/fondo.png">
+            <img src="https://cloudfront-us-east-1.images.arcpublishing.com/prisaradioco/KQDBYECJKNPVBMJJY2IERUVTOI.jpg">
         </div>
-        <button class="prev" onclick="prevSlide()">&#10094;</button>
-        <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
-
-    <div class="container">
-        <section id="inicio">
-            <h2>Bienvenidos a la Universidad de Córdoba</h2>
-            <p>Formamos profesionales con excelencia académica.</p>
-        </section>
-    </div>
-
+    
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll(".carousel img");
+    
+        function changeImage() {
+            images[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add("active");
+        }
+    
+        setInterval(changeImage, 4000);
+    </script>
+    
     <footer class="footer-container">
         <p>Carrera 6 No. 77- 305 Montería - Córdoba, Colombia | Código Postal: 230002 PBX: 57-6047862396 | NIT: 891080031-3 | contacto@correo.unicordoba.edu.co</p>
         <p><strong>La Universidad de Córdoba</strong>, es una Institución de educación superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional.</p>
         <p>Mapa de sitio, Ley de protección de datos, Política de privacidad, Transparencia y acceso a la información, PQRSyD contacto@correo.unicordoba.edu.co - notificacionesjudiciales@correo.unicordoba.edu.co.</p>
     </footer>
 
-    <script>
-        let index = 0;
-        function showSlide(n) {
-            const slides = document.querySelector('.slider');
-            index = n % 3;
-            slides.style.transform = `translateX(-${index * 100}%)`;
-        }
-        function prevSlide() {
-            index = (index - 1 + 3) % 3;
-            showSlide(index);
-        }
-        function nextSlide() {
-            index = (index + 1) % 3;
-            showSlide(index);
-        }
-        setInterval(() => nextSlide(), 5000);
-    </script>
 </body>
 </html>
